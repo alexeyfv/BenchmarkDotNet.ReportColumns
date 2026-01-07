@@ -1,8 +1,5 @@
 <Solution>
-  <Folder Name="/demo/">
-    <Project Path="demo/Demo.csproj" />
-  </Folder>
-  <Folder Name="/src/" />
+  <Project Path="demo/Demo.csproj" />
   <Project Path="src/BenchmarkDotNet.ReportColumns.csproj" />
   <Project Path="tests/BenchmarkDotNet.ReportColumns.Tests.csproj" />
 </Solution>
