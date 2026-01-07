@@ -1,9 +1,8 @@
-name: .NET
+name: CI
 
 on:
   push:
     branches: ["main"]
-
   pull_request:
     branches: ["main"]
 
@@ -57,19 +56,16 @@ jobs:
         run: dotnet restore ./src/BenchmarkDotNet.ReportColumns.csproj
 
       - name: Build
-        run: dotnet build ./src/BenchmarkDotNet.ReportColumns.csproj -c Release --no-restore
+        run: dotnet build ./src/BenchmarkDotNet.ReportColumns.csproj -c Release --no-restore -p:Version=${{ github.ref_name }}
 
       - name: Pack
-        run: dotnet pack ./src/BenchmarkDotNet.ReportColumns.csproj -c Release --no-build -o ./artifacts
+        run: dotnet pack ./src/BenchmarkDotNet.ReportColumns.csproj -c Release --no-build -o ./artifacts -p:PackageVersion=${{ github.ref_name }}
 
-      - name: Pack
-        run: dotnet pack ./src/BenchmarkDotNet.ReportColumns.csproj -c Release -o ./artifacts
-
-      - name: NuGet login
+      - name: NuGet trusted publishing
         uses: NuGet/login@v1
         id: nuget_login
         with:
           user: alexeyfv
 
       - name: Push to NuGet.org
-        run: dotnet nuget push "./artifacts/*.nupkg" --source https://api.nuget.org/v3/index.json --api-key ${{ steps.nuget_login.outputs.token }} 
+        run: dotnet nuget push "./artifacts/*.nupkg" -s https://api.nuget.org/v3/index.json --api-key "${{ steps.nuget_login.outputs.NUGET_API_KEY }}" --skip-duplicate
