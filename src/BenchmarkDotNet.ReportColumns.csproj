@@ -12,8 +12,6 @@
     <Authors>Aleksei Fedorov</Authors>
     <Company>Aleksei Fedorov</Company>
 
-    <Version>0.1.0</Version>
-    
     <Description>Additional BenchmarkDotNet report columns powered by an incremental source generator and in-process diagnostics.</Description>
     <PackageTags>benchmark;benchmarkdotnet;performance;reporting;columns;source-generator;roslyn</PackageTags>
 
