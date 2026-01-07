@@ -4,13 +4,33 @@ Source generator that makes it easy to add custom columns to BenchmarkDotNet sum
 
 ## Basic usage
 
-Install the NuGet package:
+### 1. Install the NuGet package
 
 ```bash
-dotnet add package BenchmarkDotNet.ReportColumns
+dotnet add package AlekseiFedorov.BenchmarkDotNet.ReportColumns
 ```
 
-Make your benchmark class `partial` and add the `[ReportColumn]` attribute to necessary properties:
+### 2. Add BenchmarkDotNet nightly feed
+
+This library relies on BenchmarkDotNet functionality that isn’t released yet, so you need to add the BenchmarkDotNet nightly feed to the NuGet sources.
+
+Create a `nuget.config` file in your solution root with this content:
+
+``` xml
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+<packageSources>
+    <!-- Official NuGet feed -->
+    <add key="nuget.org" value="https://api.nuget.org/v3/index.json" protocolVersion="3" />
+    <!-- BenchmarkDotNet nightly feed -->
+    <add key="bdn-nightly" value="https://www.myget.org/F/benchmarkdotnet/api/v3/index.json" />
+</packageSources>
+</configuration>
+```
+
+### 3. Annotate properties
+
+Make your benchmark class `partial` and mark any properties you want to appear as report columns with `[ReportColumn]`:
 
 ``` cs
 public partial class MyBenchmark
@@ -35,7 +55,7 @@ By default, the generator will create a column with the property name as the hea
 | BenchmarkMethod | 1.000 s | 0.0001 s | 0.0001 s | 77              |
 ```
 
-Constraints:
+## Constraints
 
 - Benchmark type must be `partial`.
 - Column property must be `public`, non-static and with a `public` getter.
@@ -62,7 +82,7 @@ public partial class MyBenchmark
 Results in:
 
 ``` markdown
-| Method          | Mean    | Error    | StdDev   | Awesome Column [ms] |
-|---------------- |--------:|---------:|---------:|-------------------- |
+| Method          |    Mean |    Error |   StdDev | Awesome Column [ms] |
+| --------------- | ------: | -------: | -------: | ------------------- |
 | BenchmarkMethod | 1.000 s | 0.0001 s | 0.0001 s | 20                  |
 ```
