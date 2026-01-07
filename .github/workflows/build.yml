@@ -65,5 +65,10 @@ jobs:
       - name: Pack
         run: dotnet pack ./src/BenchmarkDotNet.ReportColumns.csproj -c Release -o ./artifacts
 
+      - name: NuGet login
+        uses: NuGet/login@v1
+        with:
+          user: alexeyfv
+
       - name: Push to NuGet.org
         run: dotnet nuget push "./artifacts/*.nupkg" --source https://api.nuget.org/v3/index.json --skip-duplicate
