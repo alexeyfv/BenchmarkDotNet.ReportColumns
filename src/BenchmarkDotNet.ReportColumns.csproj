@@ -6,6 +6,31 @@
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+
+    <PackageId>BenchmarkDotNet.ReportColumns</PackageId>
+    <Title>BenchmarkDotNet.ReportColumns</Title>
+    <Authors>Aleksei Fedorov</Authors>
+    <Company>Aleksei Fedorov</Company>
+
+    <Version>0.1.0</Version>
+    
+    <Description>Additional BenchmarkDotNet report columns powered by an incremental source generator and in-process diagnostics.</Description>
+    <PackageTags>benchmark;benchmarkdotnet;performance;reporting;columns;source-generator;roslyn</PackageTags>
+
+    <PackageProjectUrl>https://github.com/alexeyfv/BenchmarkDotNet.ReportColumns</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/alexeyfv/BenchmarkDotNet.ReportColumns</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
+
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+
+    <IncludeBuildOutput>false</IncludeBuildOutput>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,10 +39,25 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="5.0.0" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+    <None Include="..\README.md" Pack="true" PackagePath="\" />
+    <None Include="..\LICENSE" Pack="true" PackagePath="\" />
   </ItemGroup>
-  
+
+
+  <ItemGroup>
+    <None Include="$(OutputPath)\$(AssemblyName).dll"
+          Pack="true"
+          PackagePath="analyzers/dotnet/cs"
+          Visible="false" />
+    <None Include="$(OutputPath)\$(AssemblyName).pdb"
+          Pack="true"
+          PackagePath="analyzers/dotnet/cs"
+          Visible="false"
+          Condition="Exists('$(OutputPath)\$(AssemblyName).pdb')" />
+  </ItemGroup>
+
 </Project>
