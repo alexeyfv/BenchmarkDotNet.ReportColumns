@@ -56,10 +56,10 @@ jobs:
         run: dotnet restore ./src/BenchmarkDotNet.ReportColumns.csproj
 
       - name: Build
-        run: dotnet build ./src/BenchmarkDotNet.ReportColumns.csproj -c Release --no-restore -p:Version=${{ github.ref_name }}
+        run: dotnet build ./src/BenchmarkDotNet.ReportColumns.csproj -c Release --no-restore
 
       - name: Pack
-        run: dotnet pack ./src/BenchmarkDotNet.ReportColumns.csproj -c Release --no-build -o ./artifacts -p:PackageVersion=${{ github.ref_name }}
+        run: dotnet pack ./src/BenchmarkDotNet.ReportColumns.csproj -c Release --no-build -o ./artifacts
 
       - name: NuGet trusted publishing
         uses: NuGet/login@v1
