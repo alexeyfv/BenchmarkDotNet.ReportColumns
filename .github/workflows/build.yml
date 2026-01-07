@@ -67,6 +67,7 @@ jobs:
 
       - name: NuGet login
         uses: NuGet/login@v1
+        id: nuget_login
         with:
           user: alexeyfv
 
