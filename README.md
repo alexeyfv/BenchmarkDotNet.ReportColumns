@@ -4,13 +4,7 @@ Source generator that makes it easy to add custom columns to BenchmarkDotNet sum
 
 ## Basic usage
 
-### 1. Install the NuGet package
-
-```bash
-dotnet add package AlekseiFedorov.BenchmarkDotNet.ReportColumns
-```
-
-### 2. Add BenchmarkDotNet nightly feed
+### 1. Add BenchmarkDotNet nightly feed
 
 This library relies on BenchmarkDotNet functionality that isn’t released yet, so you need to add the BenchmarkDotNet nightly feed to the NuGet sources.
 
@@ -26,6 +20,15 @@ Create a `nuget.config` file in your solution root with this content:
     <add key="bdn-nightly" value="https://www.myget.org/F/benchmarkdotnet/api/v3/index.json" />
 </packageSources>
 </configuration>
+```
+
+### 2. Install packages
+
+Add BenchmarkDotNet nightly package and source generator package to your benchmark project:
+
+```bash
+dotnet add package BenchmarkDotNet --version 0.16.0-nightly.20260105.397 
+dotnet add package AlekseiFedorov.BenchmarkDotNet.ReportColumns
 ```
 
 ### 3. Annotate properties
