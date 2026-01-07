@@ -42,7 +42,7 @@ jobs:
 
     permissions:
       contents: read
-      packages: write
+      id-token: write
 
     steps:
       - uses: actions/checkout@v4
@@ -62,8 +62,8 @@ jobs:
       - name: Pack
         run: dotnet pack ./src/BenchmarkDotNet.ReportColumns.csproj -c Release --no-build -o ./artifacts
 
-      - name: Add GitHub Packages source
-        run: dotnet nuget add source --username "alexeyfv" --password "${{ secrets.GITHUB_TOKEN }}" --store-password-in-clear-text --name github "https://nuget.pkg.github.com/alexeyfv/index.json"
+      - name: Pack
+        run: dotnet pack ./src/BenchmarkDotNet.ReportColumns.csproj -c Release -o ./artifacts
 
-      - name: Push
-        run: dotnet nuget push "./artifacts/*.nupkg" --source github --skip-duplicate
+      - name: Push to NuGet.org
+        run: dotnet nuget push "./artifacts/*.nupkg" --source https://api.nuget.org/v3/index.json --skip-duplicate
