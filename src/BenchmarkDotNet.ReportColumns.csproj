@@ -24,7 +24,6 @@
 
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
 
-    <IncludeBuildOutput>false</IncludeBuildOutput>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     
